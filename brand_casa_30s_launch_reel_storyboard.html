@@ -1,0 +1,309 @@
+<style>
+.bc-frame{background:#0A0A0A;color:#F5F1E8;font-family:var(--font-sans);position:relative;overflow:hidden;border-radius:var(--border-radius-lg)}
+.bc-frame .grain{position:absolute;inset:0;background:radial-gradient(circle at 50% 50%, rgba(255,255,255,0.025), transparent 60%);pointer-events:none}
+.bc-mark{position:absolute;top:14px;left:18px;font-size:10px;letter-spacing:0.18em;color:rgba(245,241,232,0.5);text-transform:uppercase;font-weight:500}
+.bc-tc{position:absolute;top:14px;right:18px;font-family:var(--font-mono);font-size:10px;color:rgba(245,241,232,0.5);letter-spacing:0.05em}
+.scene-frame{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;padding:36px}
+.frame-stage[data-scene="1"] .s1,.frame-stage[data-scene="2"] .s2,.frame-stage[data-scene="3"] .s3,.frame-stage[data-scene="4"] .s4,.frame-stage[data-scene="5"] .s5,.frame-stage[data-scene="6"] .s6,.frame-stage[data-scene="7"] .s7{display:flex}
+@keyframes bcSlamIn{0%{transform:scale(1.35);opacity:0;letter-spacing:0.2em}55%{transform:scale(0.97);opacity:1;letter-spacing:-0.02em}100%{transform:scale(1);opacity:1;letter-spacing:-0.02em}}
+@keyframes bcSlideUp{from{transform:translateY(38px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes bcSlideDown{from{transform:translateY(-38px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes bcSlideLeft{from{transform:translateX(50px);opacity:0}to{transform:translateX(0);opacity:1}}
+@keyframes bcCursor{0%,49%{opacity:1}50%,100%{opacity:0}}
+@keyframes bcDraw{from{stroke-dashoffset:240}to{stroke-dashoffset:0}}
+@keyframes bcPop{0%{transform:scale(0);opacity:0}60%{transform:scale(1.08);opacity:1}100%{transform:scale(1);opacity:1}}
+@keyframes bcCyc1{0%,25%{opacity:1;transform:translateY(0)}28%,100%{opacity:0;transform:translateY(-12px)}}
+@keyframes bcCyc2{0%,27%{opacity:0;transform:translateY(12px)}31%,57%{opacity:1;transform:translateY(0)}60%,100%{opacity:0;transform:translateY(-12px)}}
+@keyframes bcCyc3{0%,59%{opacity:0;transform:translateY(12px)}63%,100%{opacity:1;transform:translateY(0)}}
+@keyframes bcShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-4px)}40%{transform:translateX(5px)}60%{transform:translateX(-3px)}80%{transform:translateX(2px)}}
+@keyframes bcGlowAccent{0%,100%{color:#F5F1E8}50%{color:#FF5722}}
+@keyframes bcWipe{from{clip-path:inset(0 100% 0 0)}to{clip-path:inset(0 0 0 0)}}
+.bc-accent{color:#FF5722}
+.bc-cream{color:#F5F1E8}
+.bc-dim{color:rgba(245,241,232,0.55)}
+.bc-serif{font-family:var(--font-serif);font-style:italic}
+.bc-mono{font-family:var(--font-mono);letter-spacing:-0.03em}
+.sb-card{background:var(--color-background-primary);border:0.5px solid var(--color-border-tertiary);border-radius:var(--border-radius-lg);overflow:hidden;cursor:pointer;transition:border-color 120ms,transform 120ms}
+.sb-card:hover{border-color:var(--color-border-secondary)}
+.sb-card.active{border-color:#FF5722;box-shadow:0 0 0 1px #FF5722}
+.sb-preview{position:relative;aspect-ratio:16/9;background:#0A0A0A;color:#F5F1E8;display:flex;align-items:center;justify-content:center;flex-direction:column;padding:14px;text-align:center;overflow:hidden}
+.bc-pill{display:inline-block;padding:4px 10px;border:1px solid rgba(245,241,232,0.25);border-radius:99px;font-size:10px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(245,241,232,0.7);font-weight:500}
+.bc-btn{background:transparent;border:0.5px solid var(--color-border-secondary);color:var(--color-text-primary);padding:6px 12px;border-radius:var(--border-radius-md);font-size:13px;font-family:var(--font-sans);cursor:pointer;display:inline-flex;align-items:center;gap:6px;transition:background 120ms}
+.bc-btn:hover{background:var(--color-background-secondary)}
+.bc-btn:active{transform:scale(0.98)}
+.tl-seg{flex:var(--w);background:var(--color-background-secondary);border-right:0.5px solid var(--color-background-primary);cursor:pointer;display:flex;align-items:flex-end;padding:6px 8px;font-size:10px;color:var(--color-text-tertiary);font-family:var(--font-mono);transition:background 120ms;position:relative}
+.tl-seg:hover{background:var(--color-border-tertiary)}
+.tl-seg.active{background:#2E2E2E;color:#F5F1E8}
+.tl-seg:last-child{border-right:none}
+</style>
+<h2 class="sr-only">Storyboard for Brand Casa 30-second launch reel: seven scenes with motion direction, timing, and an interactive playable stage.</h2>
+
+<div style="padding:0.5rem 0 1.25rem;display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px">
+  <div>
+    <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-tertiary);font-weight:500">Project · Launch reel</div>
+    <div style="font-size:22px;font-weight:500;line-height:1.2;margin-top:2px">Brand Casa — 30s spot</div>
+  </div>
+  <div style="display:flex;gap:8px;align-items:center;font-size:12px;color:var(--color-text-secondary)">
+    <span style="display:inline-flex;align-items:center;gap:6px"><i class="ti ti-clock" style="font-size:14px" aria-hidden="true"></i>0:30 runtime</span>
+    <span style="color:var(--color-border-secondary)">·</span>
+    <span style="display:inline-flex;align-items:center;gap:6px"><i class="ti ti-aspect-ratio" style="font-size:14px" aria-hidden="true"></i>16:9 master</span>
+    <span style="color:var(--color-border-secondary)">·</span>
+    <span style="display:inline-flex;align-items:center;gap:6px"><i class="ti ti-language" style="font-size:14px" aria-hidden="true"></i>EN / ES</span>
+  </div>
+</div>
+
+<div class="bc-frame frame-stage" id="stage" data-scene="1" style="aspect-ratio:16/9;width:100%">
+  <div class="grain"></div>
+  <div class="bc-mark">BRAND CASA · LAUNCH REEL</div>
+  <div class="bc-tc" id="tc">00:00 · 30</div>
+
+  <div class="scene-frame s1">
+    <div style="font-size:13px;letter-spacing:0.22em;text-transform:uppercase;color:rgba(245,241,232,0.55);font-weight:500;margin-bottom:18px">Hiring a creative team</div>
+    <div style="position:relative;height:88px;width:100%;display:flex;align-items:center;justify-content:center">
+      <div style="position:absolute;font-size:68px;font-weight:500;letter-spacing:-0.04em;animation:bcCyc1 3s linear forwards;color:#F5F1E8">is expensive.</div>
+      <div style="position:absolute;font-size:68px;font-weight:500;letter-spacing:-0.04em;animation:bcCyc2 3s linear forwards;color:#F5F1E8">is slow.</div>
+      <div style="position:absolute;font-size:68px;font-weight:500;letter-spacing:-0.04em;animation:bcCyc3 3s linear forwards;color:#FF5722">is broken.</div>
+    </div>
+  </div>
+
+  <div class="scene-frame s2" style="gap:10px;justify-content:center">
+    <div class="bc-pill" style="animation:bcSlideDown 0.45s cubic-bezier(.2,.7,.2,1) both;animation-delay:0s">$25K agency retainers</div>
+    <div class="bc-pill" style="animation:bcSlideDown 0.45s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.35s">6-month contracts</div>
+    <div class="bc-pill" style="animation:bcSlideDown 0.45s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.7s">5-week turnarounds</div>
+    <div class="bc-pill" style="animation:bcSlideDown 0.45s cubic-bezier(.2,.7,.2,1) both;animation-delay:1.05s">Endless email chains</div>
+    <div style="margin-top:14px;font-size:14px;color:rgba(245,241,232,0.5);font-family:var(--font-serif);font-style:italic;animation:bcSlideUp 0.5s both;animation-delay:1.6s">There has to be a better way.</div>
+  </div>
+
+  <div class="scene-frame s3" style="gap:14px">
+    <svg width="76" height="76" viewBox="0 0 100 100" style="overflow:visible">
+      <path d="M 20 88 L 20 48 L 50 22 L 80 48 L 80 88 Z M 42 88 L 42 64 L 58 64 L 58 88" fill="none" stroke="#FF5722" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" stroke-dasharray="240" style="animation:bcDraw 0.9s cubic-bezier(.6,0,.2,1) both"></path>
+    </svg>
+    <div style="font-size:54px;font-weight:500;letter-spacing:-0.05em;animation:bcSlamIn 0.55s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.7s">BRAND CASA</div>
+    <div style="font-size:18px;animation:bcSlideUp 0.5s both;animation-delay:1.4s">
+      <span class="bc-serif bc-dim">tu casa creativa</span><span class="bc-accent" style="animation:bcCursor 0.6s steps(1) infinite;animation-delay:1.4s;margin-left:2px">_</span>
+    </div>
+  </div>
+
+  <div class="scene-frame s4" style="align-items:flex-start;text-align:left;justify-content:center;padding-left:64px">
+    <div style="font-size:62px;font-weight:500;letter-spacing:-0.045em;line-height:1.02;animation:bcSlideLeft 0.5s cubic-bezier(.2,.7,.2,1) both">Your entire</div>
+    <div style="font-size:62px;font-weight:500;letter-spacing:-0.045em;line-height:1.02;animation:bcSlideLeft 0.5s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.45s">marketing team.</div>
+    <div style="font-size:62px;font-weight:500;letter-spacing:-0.045em;line-height:1.02;margin-top:6px;animation:bcSlamIn 0.55s cubic-bezier(.2,.7,.2,1) both;animation-delay:1.05s" class="bc-accent">One subscription.</div>
+  </div>
+
+  <div class="scene-frame s5" style="padding:32px 56px">
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:100%">
+      <div style="border:0.5px solid rgba(245,241,232,0.18);padding:14px;border-radius:8px;animation:bcPop 0.4s cubic-bezier(.2,.7,.2,1) both;animation-delay:0s"><div style="font-size:11px;color:rgba(245,241,232,0.5);letter-spacing:0.12em;text-transform:uppercase">01</div><div style="font-size:17px;font-weight:500;margin-top:4px">Brand identity</div></div>
+      <div style="border:0.5px solid rgba(245,241,232,0.18);padding:14px;border-radius:8px;animation:bcPop 0.4s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.25s"><div style="font-size:11px;color:rgba(245,241,232,0.5);letter-spacing:0.12em;text-transform:uppercase">02</div><div style="font-size:17px;font-weight:500;margin-top:4px">Web & dev</div></div>
+      <div style="border:0.5px solid rgba(245,241,232,0.18);padding:14px;border-radius:8px;animation:bcPop 0.4s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.5s"><div style="font-size:11px;color:rgba(245,241,232,0.5);letter-spacing:0.12em;text-transform:uppercase">03</div><div style="font-size:17px;font-weight:500;margin-top:4px">Paid ads</div></div>
+      <div style="border:0.5px solid rgba(245,241,232,0.18);padding:14px;border-radius:8px;animation:bcPop 0.4s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.75s"><div style="font-size:11px;color:rgba(245,241,232,0.5);letter-spacing:0.12em;text-transform:uppercase">04</div><div style="font-size:17px;font-weight:500;margin-top:4px">Content</div></div>
+      <div style="border:1px solid #FF5722;background:rgba(255,87,34,0.08);padding:14px;border-radius:8px;animation:bcPop 0.4s cubic-bezier(.2,.7,.2,1) both;animation-delay:1s"><div style="font-size:11px;color:#FF5722;letter-spacing:0.12em;text-transform:uppercase">05</div><div style="font-size:17px;font-weight:500;margin-top:4px" class="bc-accent">Social</div></div>
+      <div style="border:0.5px solid rgba(245,241,232,0.18);padding:14px;border-radius:8px;animation:bcPop 0.4s cubic-bezier(.2,.7,.2,1) both;animation-delay:1.25s"><div style="font-size:11px;color:rgba(245,241,232,0.5);letter-spacing:0.12em;text-transform:uppercase">06</div><div style="font-size:17px;font-weight:500;margin-top:4px">Email</div></div>
+      <div style="border:0.5px solid rgba(245,241,232,0.18);padding:14px;border-radius:8px;animation:bcPop 0.4s cubic-bezier(.2,.7,.2,1) both;animation-delay:1.5s"><div style="font-size:11px;color:rgba(245,241,232,0.5);letter-spacing:0.12em;text-transform:uppercase">07</div><div style="font-size:17px;font-weight:500;margin-top:4px">Motion</div></div>
+      <div style="border:0.5px solid rgba(245,241,232,0.18);padding:14px;border-radius:8px;animation:bcPop 0.4s cubic-bezier(.2,.7,.2,1) both;animation-delay:1.75s"><div style="font-size:11px;color:rgba(245,241,232,0.5);letter-spacing:0.12em;text-transform:uppercase">08</div><div style="font-size:17px;font-weight:500;margin-top:4px">Packaging</div></div>
+      <div style="border:0.5px solid rgba(245,241,232,0.18);padding:14px;border-radius:8px;animation:bcPop 0.4s cubic-bezier(.2,.7,.2,1) both;animation-delay:2s"><div style="font-size:11px;color:rgba(245,241,232,0.5);letter-spacing:0.12em;text-transform:uppercase">09</div><div style="font-size:17px;font-weight:500;margin-top:4px">Strategy</div></div>
+    </div>
+    <div style="margin-top:18px;font-size:13px;color:rgba(245,241,232,0.55);font-family:var(--font-serif);font-style:italic;animation:bcSlideUp 0.5s both;animation-delay:2.4s">One team. Every channel.</div>
+  </div>
+
+  <div class="scene-frame s6" style="gap:20px">
+    <div style="display:flex;gap:48px;align-items:flex-end">
+      <div style="text-align:center;animation:bcSlideUp 0.5s cubic-bezier(.2,.7,.2,1) both"><div class="bc-mono bc-accent" style="font-size:96px;font-weight:500;line-height:1">48</div><div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,241,232,0.6);margin-top:-4px">hour turnaround</div></div>
+      <div style="text-align:center;animation:bcSlideUp 0.5s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.3s"><div class="bc-mono" style="font-size:96px;font-weight:500;line-height:1">∞</div><div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,241,232,0.6);margin-top:-4px">requests · revisions</div></div>
+      <div style="text-align:center;animation:bcSlideUp 0.5s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.6s"><div class="bc-mono" style="font-size:96px;font-weight:500;line-height:1">0</div><div style="font-size:12px;letter-spacing:0.18em;text-transform:uppercase;color:rgba(245,241,232,0.6);margin-top:-4px">contracts · lock-in</div></div>
+    </div>
+    <div style="font-size:14px;color:rgba(245,241,232,0.55);font-family:var(--font-serif);font-style:italic;margin-top:8px;animation:bcSlideUp 0.5s both;animation-delay:1s">Pause anytime. Cancel anytime.</div>
+  </div>
+
+  <div class="scene-frame s7" style="gap:18px">
+    <div style="display:flex;gap:14px">
+      <div style="border:0.5px solid rgba(245,241,232,0.3);border-radius:99px;padding:10px 22px;animation:bcSlideUp 0.4s both"><span class="bc-dim" style="font-size:11px;letter-spacing:0.2em">UNO</span> <span class="bc-mono" style="font-size:14px;margin-left:8px">$2,495</span></div>
+      <div style="border:0.5px solid rgba(245,241,232,0.3);border-radius:99px;padding:10px 22px;animation:bcSlideUp 0.4s both;animation-delay:0.2s"><span class="bc-dim" style="font-size:11px;letter-spacing:0.2em">DOS</span> <span class="bc-mono" style="font-size:14px;margin-left:8px">$3,299</span></div>
+      <div style="border:1px solid #FF5722;border-radius:99px;padding:10px 22px;animation:bcSlideUp 0.4s both;animation-delay:0.4s"><span class="bc-accent" style="font-size:11px;letter-spacing:0.2em">TRES</span> <span class="bc-mono bc-accent" style="font-size:14px;margin-left:8px">$4,099</span></div>
+    </div>
+    <div style="font-size:64px;font-weight:500;letter-spacing:-0.05em;margin-top:6px;animation:bcSlamIn 0.5s cubic-bezier(.2,.7,.2,1) both;animation-delay:0.7s">BRAND CASA</div>
+    <div style="display:flex;align-items:center;gap:14px;animation:bcSlideUp 0.4s both;animation-delay:1.1s">
+      <span class="bc-mono bc-dim" style="font-size:15px;letter-spacing:-0.02em">brandcasa.io</span>
+      <span style="color:rgba(245,241,232,0.3)">·</span>
+      <span class="bc-accent" style="font-size:15px;font-weight:500;display:inline-flex;align-items:center;gap:6px">Book a demo <i class="ti ti-arrow-right" aria-hidden="true"></i></span>
+    </div>
+  </div>
+</div>
+
+<div style="margin-top:1rem;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+  <button class="bc-btn" id="prevBtn" aria-label="Previous scene"><i class="ti ti-player-skip-back" aria-hidden="true"></i></button>
+  <button class="bc-btn" id="playBtn" style="background:var(--color-text-primary);color:var(--color-background-primary);border-color:var(--color-text-primary)"><i class="ti ti-player-play" id="playIcon" aria-hidden="true"></i><span id="playLabel">Play</span></button>
+  <button class="bc-btn" id="nextBtn" aria-label="Next scene"><i class="ti ti-player-skip-forward" aria-hidden="true"></i></button>
+  <button class="bc-btn" id="restartBtn" aria-label="Restart"><i class="ti ti-refresh" aria-hidden="true"></i></button>
+  <div style="flex:1"></div>
+  <div style="font-family:var(--font-mono);font-size:13px;color:var(--color-text-secondary)" id="readout">00:00 / 00:30</div>
+</div>
+
+<div style="margin-top:10px;display:flex;height:38px;border-radius:var(--border-radius-md);overflow:hidden;border:0.5px solid var(--color-border-tertiary)" id="timeline">
+  <div class="tl-seg active" data-sc="1" style="--w:3">1 · Hook</div>
+  <div class="tl-seg" data-sc="2" style="--w:3">2 · Pain</div>
+  <div class="tl-seg" data-sc="3" style="--w:4">3 · Reveal</div>
+  <div class="tl-seg" data-sc="4" style="--w:4">4 · Promise</div>
+  <div class="tl-seg" data-sc="5" style="--w:7">5 · Services</div>
+  <div class="tl-seg" data-sc="6" style="--w:4">6 · Proof</div>
+  <div class="tl-seg" data-sc="7" style="--w:5">7 · CTA</div>
+</div>
+
+<div style="margin:1.5rem 0 0.75rem;display:flex;align-items:baseline;justify-content:space-between">
+  <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-tertiary);font-weight:500">Storyboard</div>
+  <div style="font-size:12px;color:var(--color-text-secondary)">Tap a card to play</div>
+</div>
+
+<div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px" id="sbGrid">
+
+<div class="sb-card active" data-jump="1">
+  <div class="sb-preview"><div style="font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:rgba(245,241,232,0.5);margin-bottom:8px">Hiring a team</div><div style="font-size:18px;font-weight:500;letter-spacing:-0.03em">is <span class="bc-accent">broken.</span></div></div>
+  <div style="padding:10px 12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font-size:13px;font-weight:500">01 · Hook</span><span class="bc-mono" style="font-size:11px;color:var(--color-text-tertiary)">0:00–0:03</span></div>
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.45">3 phrases cycle on hard cuts. Last one snaps to accent. <em>VO: silence + low drone.</em></div>
+  </div>
+</div>
+
+<div class="sb-card" data-jump="2">
+  <div class="sb-preview" style="gap:5px;justify-content:center"><div class="bc-pill" style="font-size:8px;padding:3px 6px">$25K retainers</div><div class="bc-pill" style="font-size:8px;padding:3px 6px">6-mo contracts</div><div class="bc-pill" style="font-size:8px;padding:3px 6px">5-wk turnarounds</div></div>
+  <div style="padding:10px 12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font-size:13px;font-weight:500">02 · Pain</span><span class="bc-mono" style="font-size:11px;color:var(--color-text-tertiary)">0:03–0:06</span></div>
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.45">Pills drop from top, stagger 350ms. End on serif beat: <em>"There has to be a better way."</em></div>
+  </div>
+</div>
+
+<div class="sb-card" data-jump="3">
+  <div class="sb-preview"><svg width="32" height="32" viewBox="0 0 100 100"><path d="M 20 88 L 20 48 L 50 22 L 80 48 L 80 88 Z M 42 88 L 42 64 L 58 64 L 58 88" fill="none" stroke="#FF5722" stroke-width="5" stroke-linejoin="round"></path></svg><div style="font-size:16px;font-weight:500;letter-spacing:-0.03em;margin-top:6px">BRAND CASA</div><div class="bc-serif bc-dim" style="font-size:10px;margin-top:2px">tu casa creativa</div></div>
+  <div style="padding:10px 12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font-size:13px;font-weight:500">03 · Reveal</span><span class="bc-mono" style="font-size:11px;color:var(--color-text-tertiary)">0:06–0:10</span></div>
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.45">Casa glyph stroke-draws (900ms), wordmark slam-ins, tagline types with cursor.</div>
+  </div>
+</div>
+
+<div class="sb-card" data-jump="4">
+  <div class="sb-preview" style="align-items:flex-start;text-align:left;justify-content:center;padding:14px 18px"><div style="font-size:11px;font-weight:500;letter-spacing:-0.02em;line-height:1.1">Your entire</div><div style="font-size:11px;font-weight:500;letter-spacing:-0.02em;line-height:1.1">marketing team.</div><div class="bc-accent" style="font-size:11px;font-weight:500;letter-spacing:-0.02em;line-height:1.1">One subscription.</div></div>
+  <div style="padding:10px 12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font-size:13px;font-weight:500">04 · Promise</span><span class="bc-mono" style="font-size:11px;color:var(--color-text-tertiary)">0:10–0:14</span></div>
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.45">Left-aligned wall of type. Three lines slide in (L→R), final lands in accent.</div>
+  </div>
+</div>
+
+<div class="sb-card" data-jump="5">
+  <div class="sb-preview" style="padding:12px"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;width:100%"><div style="border:0.5px solid rgba(245,241,232,0.2);padding:3px;border-radius:2px;font-size:7px;text-align:center">Brand</div><div style="border:0.5px solid rgba(245,241,232,0.2);padding:3px;border-radius:2px;font-size:7px;text-align:center">Web</div><div style="border:0.5px solid rgba(245,241,232,0.2);padding:3px;border-radius:2px;font-size:7px;text-align:center">Ads</div><div style="border:0.5px solid rgba(245,241,232,0.2);padding:3px;border-radius:2px;font-size:7px;text-align:center">Content</div><div style="border:1px solid #FF5722;padding:3px;border-radius:2px;font-size:7px;text-align:center" class="bc-accent">Social</div><div style="border:0.5px solid rgba(245,241,232,0.2);padding:3px;border-radius:2px;font-size:7px;text-align:center">Email</div><div style="border:0.5px solid rgba(245,241,232,0.2);padding:3px;border-radius:2px;font-size:7px;text-align:center">Motion</div><div style="border:0.5px solid rgba(245,241,232,0.2);padding:3px;border-radius:2px;font-size:7px;text-align:center">Pkg</div><div style="border:0.5px solid rgba(245,241,232,0.2);padding:3px;border-radius:2px;font-size:7px;text-align:center">Strat</div></div></div>
+  <div style="padding:10px 12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font-size:13px;font-weight:500">05 · Services</span><span class="bc-mono" style="font-size:11px;color:var(--color-text-tertiary)">0:14–0:21</span></div>
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.45">3×3 grid pop-in, 250ms stagger. One tile highlights in accent each beat.</div>
+  </div>
+</div>
+
+<div class="sb-card" data-jump="6">
+  <div class="sb-preview"><div style="display:flex;gap:14px;align-items:flex-end"><div style="text-align:center"><div class="bc-mono bc-accent" style="font-size:24px;font-weight:500;line-height:1">48</div><div style="font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,241,232,0.55)">hr</div></div><div style="text-align:center"><div class="bc-mono" style="font-size:24px;font-weight:500;line-height:1">∞</div><div style="font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,241,232,0.55)">requests</div></div><div style="text-align:center"><div class="bc-mono" style="font-size:24px;font-weight:500;line-height:1">0</div><div style="font-size:7px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(245,241,232,0.55)">contracts</div></div></div></div>
+  <div style="padding:10px 12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font-size:13px;font-weight:500">06 · Proof</span><span class="bc-mono" style="font-size:11px;color:var(--color-text-tertiary)">0:21–0:25</span></div>
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.45">Three stats slide up + count, 300ms apart. Serif beat closes: pause / cancel anytime.</div>
+  </div>
+</div>
+
+<div class="sb-card" data-jump="7">
+  <div class="sb-preview" style="gap:5px"><div style="display:flex;gap:4px"><div style="border:0.5px solid rgba(245,241,232,0.3);border-radius:99px;padding:2px 7px;font-size:7px">UNO</div><div style="border:0.5px solid rgba(245,241,232,0.3);border-radius:99px;padding:2px 7px;font-size:7px">DOS</div><div style="border:1px solid #FF5722;border-radius:99px;padding:2px 7px;font-size:7px" class="bc-accent">TRES</div></div><div style="font-size:14px;font-weight:500;letter-spacing:-0.03em;margin-top:4px">BRAND CASA</div><div class="bc-mono bc-dim" style="font-size:9px">brandcasa.io →</div></div>
+  <div style="padding:10px 12px">
+    <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:4px"><span style="font-size:13px;font-weight:500">07 · CTA</span><span class="bc-mono" style="font-size:11px;color:var(--color-text-tertiary)">0:25–0:30</span></div>
+    <div style="font-size:11px;color:var(--color-text-secondary);line-height:1.45">Plan pills slide up + stagger. Wordmark slams. URL + "Book a demo →" holds 1.5s.</div>
+  </div>
+</div>
+
+</div>
+
+<div style="margin-top:1.75rem;padding-top:1.25rem;border-top:0.5px solid var(--color-border-tertiary);display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1.25rem">
+  <div>
+    <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-tertiary);font-weight:500;margin-bottom:10px">Palette</div>
+    <div style="display:flex;flex-direction:column;gap:6px;font-size:12px">
+      <div style="display:flex;align-items:center;gap:8px"><div style="width:18px;height:18px;border-radius:4px;background:#0A0A0A;border:0.5px solid var(--color-border-tertiary)"></div><span class="bc-mono">#0A0A0A</span><span style="color:var(--color-text-secondary)">canvas</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><div style="width:18px;height:18px;border-radius:4px;background:#F5F1E8;border:0.5px solid var(--color-border-tertiary)"></div><span class="bc-mono">#F5F1E8</span><span style="color:var(--color-text-secondary)">cream</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><div style="width:18px;height:18px;border-radius:4px;background:#FF5722"></div><span class="bc-mono">#FF5722</span><span style="color:var(--color-text-secondary)">accent</span></div>
+      <div style="display:flex;align-items:center;gap:8px"><div style="width:18px;height:18px;border-radius:4px;background:#2E2E2E"></div><span class="bc-mono">#2E2E2E</span><span style="color:var(--color-text-secondary)">surface</span></div>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-tertiary);font-weight:500;margin-bottom:10px">Type</div>
+    <div style="display:flex;flex-direction:column;gap:8px;font-size:12px;color:var(--color-text-secondary)">
+      <div><span style="font-size:18px;font-weight:500;letter-spacing:-0.04em;color:var(--color-text-primary)">Display sans</span><br/>Headlines · -4% tracking</div>
+      <div><span class="bc-serif" style="font-size:15px;color:var(--color-text-primary)">Italic serif</span><br/>Spanish phrases · taglines</div>
+      <div><span class="bc-mono" style="font-size:14px;color:var(--color-text-primary)">Mono</span><br/>Numbers · prices · URL</div>
+    </div>
+  </div>
+  <div>
+    <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-tertiary);font-weight:500;margin-bottom:10px">Motion rules</div>
+    <ul style="margin:0;padding-left:14px;font-size:12px;color:var(--color-text-secondary);line-height:1.6">
+      <li>Easing: <span class="bc-mono">cubic-bezier(.2,.7,.2,1)</span></li>
+      <li>Beat: 0.35–0.55s per element</li>
+      <li>Stagger: 200–300ms between siblings</li>
+      <li>Hard cuts on scene change · no fades</li>
+    </ul>
+  </div>
+  <div>
+    <div style="font-size:11px;letter-spacing:0.18em;text-transform:uppercase;color:var(--color-text-tertiary);font-weight:500;margin-bottom:10px">Audio bed</div>
+    <ul style="margin:0;padding-left:14px;font-size:12px;color:var(--color-text-secondary);line-height:1.6">
+      <li>0:00–0:06 sparse drone + tick</li>
+      <li>0:06 drop — Latin-tinged beat</li>
+      <li>0:14–0:21 percussive risers per tile</li>
+      <li>0:25 stinger · 0:30 hard out</li>
+    </ul>
+  </div>
+</div>
+
+<script>
+(function(){
+  const scenes=[{n:1,start:0,dur:3},{n:2,start:3,dur:3},{n:3,start:6,dur:4},{n:4,start:10,dur:4},{n:5,start:14,dur:7},{n:6,start:21,dur:4},{n:7,start:25,dur:5}];
+  const stage=document.getElementById('stage');
+  const tc=document.getElementById('tc');
+  const readout=document.getElementById('readout');
+  const playBtn=document.getElementById('playBtn');
+  const playIcon=document.getElementById('playIcon');
+  const playLabel=document.getElementById('playLabel');
+  let current=1, playing=false, sceneStart=0, timer=null, elapsed=0;
+  const fmt=s=>{const m=Math.floor(s/60),x=Math.floor(s%60);return String(m).padStart(2,'0')+':'+String(x).padStart(2,'0')};
+  function setScene(n,resetElapsed){
+    current=n;
+    stage.setAttribute('data-scene',String(n));
+    document.querySelectorAll('.tl-seg').forEach(el=>el.classList.toggle('active', Number(el.dataset.sc)===n));
+    document.querySelectorAll('.sb-card').forEach(el=>el.classList.toggle('active', Number(el.dataset.jump)===n));
+    if(resetElapsed){const sc=scenes.find(s=>s.n===n);elapsed=sc.start;sceneStart=performance.now()}
+    updateReadout();
+  }
+  function updateReadout(){
+    tc.textContent=fmt(elapsed)+' · 30';
+    readout.textContent=fmt(elapsed)+' / 00:30';
+  }
+  function tick(){
+    if(!playing)return;
+    const sc=scenes.find(s=>s.n===current);
+    const now=performance.now();
+    elapsed=sc.start+(now-sceneStart)/1000;
+    if(elapsed>=sc.start+sc.dur){
+      if(current<7){setScene(current+1,true)}
+      else{playing=false;playIcon.className='ti ti-player-play';playLabel.textContent='Play';elapsed=30;updateReadout();return}
+    }
+    updateReadout();
+    timer=requestAnimationFrame(tick);
+  }
+  playBtn.addEventListener('click',()=>{
+    playing=!playing;
+    if(playing){
+      if(current===7&&elapsed>=30)setScene(1,true);
+      else{sceneStart=performance.now()-(elapsed-scenes.find(s=>s.n===current).start)*1000}
+      playIcon.className='ti ti-player-pause';
+      playLabel.textContent='Pause';
+      timer=requestAnimationFrame(tick);
+    } else {
+      playIcon.className='ti ti-player-play';
+      playLabel.textContent='Play';
+      cancelAnimationFrame(timer);
+    }
+  });
+  document.getElementById('prevBtn').addEventListener('click',()=>{if(current>1)setScene(current-1,true)});
+  document.getElementById('nextBtn').addEventListener('click',()=>{if(current<7)setScene(current+1,true)});
+  document.getElementById('restartBtn').addEventListener('click',()=>{setScene(1,true);playing=false;playIcon.className='ti ti-player-play';playLabel.textContent='Play';cancelAnimationFrame(timer)});
+  document.querySelectorAll('.tl-seg').forEach(el=>el.addEventListener('click',()=>setScene(Number(el.dataset.sc),true)));
+  document.querySelectorAll('.sb-card').forEach(el=>el.addEventListener('click',()=>setScene(Number(el.dataset.jump),true)));
+})();
+</script>
